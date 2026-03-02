@@ -1,0 +1,59 @@
+.order-status-page {
+    padding: 10rem 0;
+    text-align: center;
+}
+
+.order-status-card {
+    background: white;
+    padding: 5rem 3rem;
+    max-width: 600px;
+    margin: 0 auto;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+}
+
+.status-icon {
+    font-size: 5rem;
+    margin-bottom: 2rem;
+    display: block;
+}
+
+.status-icon.success {
+    color: #1e8e3e;
+}
+
+.status-icon.failed {
+    color: #d93025;
+}
+
+.order-status-card h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.order-status-card p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+}
+
+.order-details-box {
+    background: var(--bg-cream);
+    padding: 2rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 3rem;
+    text-align: left;
+}
+
+.order-details-box p {
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-details-box p strong {
+    color: var(--text-muted);
+}

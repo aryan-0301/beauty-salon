@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+backend/target/
+target/
+
+# Build outputs
+build/
+dist/
+frontend/dist/
+frontend/build/
+backend/build/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment and Logs
+.env
+*.log
+backend/.env
+frontend/.env
+
+# Maven
+.mvn/
+mvnw
+mvnw.cmd
+backend/mvnw
+backend/mvnw.cmd
+backend/.mvn/
