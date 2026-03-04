@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingBag, User, Menu, X, Flower2 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import authService from '../api/authService';
 import './Navbar.css';
 
 /**
@@ -13,6 +14,8 @@ export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const { cartCount } = useCart();
     const location = useLocation();
+    const navigate = useNavigate();
+    const user = authService.getCurrentUser();
 
     // Handle scroll for transparent -> solid transition
     useEffect(() => {
@@ -22,6 +25,11 @@ export default function Navbar() {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    const handleLogout = () => {
+        authService.logout();
+        navigate('/');
+    };
 
     const navLinks = [
         { path: '/', label: 'Home', isAnchor: true },
@@ -82,6 +90,15 @@ export default function Navbar() {
                             </Link>
                         </motion.li>
                     ))}
+                    {user && user.role === 'ADMIN' && (
+                        <motion.li
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.6, duration: 0.5 }}
+                        >
+                            <Link to="/admin/dashboard" className="nav-link">Admin Panel</Link>
+                        </motion.li>
+                    )}
                 </ul>
                 <button className="navbar-btn btn btn-primary" onClick={() => window.dispatchEvent(new CustomEvent('open-booking'))}>Book Appointment</button>
 
@@ -101,9 +118,18 @@ export default function Navbar() {
                             )}
                         </AnimatePresence>
                     </Link>
-                    <Link to="/admin" className="action-icon admin-trigger" title="Admin">
-                        <User size={20} strokeWidth={1.5} />
-                    </Link>
+                    {user ? (
+                        <div className="user-nav-group">
+                            <span className="user-name-label">{user.name.split(' ')[0]}</span>
+                            <button onClick={handleLogout} className="action-icon-btn" title="Logout">
+                                <X size={20} strokeWidth={1.5} />
+                            </button>
+                        </div>
+                    ) : (
+                        <Link to="/login" className="action-icon" title="Login">
+                            <User size={20} strokeWidth={1.5} />
+                        </Link>
+                    )}
                     <button
                         className="hamburger-trigger"
                         onClick={() => setMenuOpen(!menuOpen)}
